@@ -1,0 +1,33 @@
+## Configuracion de Instancia -> products 8081, operator 8082, eureka 8083, gateway 8084
+server:
+  port: 8082
+  error:
+    include-stacktrace: on_param
+
+## Configuracion del cliente de Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8083/eureka}
+  instance:
+    preferIpAddress: true
+    hostname: ms-store-cart
+
+## Configuracion de Spring
+spring:
+  application:
+    name: ms-store-cart
+  datasource:
+    url: jdbc:h2:mem:cartdb;Mode=MySQL
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
+## Configuracion secundaria (custom)
+getProduct:
+  url: http://ms-store-products/products/%s
